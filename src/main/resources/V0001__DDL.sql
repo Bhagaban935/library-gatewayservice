@@ -1,0 +1,3 @@
+INSERT INTO library (id, book_name , book_description , price, book_genre , created_at, updated_at) VALUES(1,'Java', 'Java version17', 47499, 'backend', NOW(), NOW());
+INSERT INTO library (id, book_name , book_description , price, book_genre , created_at, updated_at) VALUES(2,'React', 'React version 1.x', 1499, 'frontend', NOW(), NOW());
+INSERT INTO library (id, book_name , book_description , price, book_genre , created_at, updated_at) VALUES(3,'Horror', 'sample horror book', 15990, 'horror', NOW(), NOW());
