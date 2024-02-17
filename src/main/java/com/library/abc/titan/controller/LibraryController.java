@@ -8,6 +8,7 @@ import com.library.abc.titan.repository.LibraryRepository;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+
 @OpenAPIDefinition(info = @Info(
         title = "Library Gateway Service",
         description = "Library Gateway Service",
@@ -52,12 +54,13 @@ public class LibraryController {
     }
 
     @GetMapping("/book/{id}")
-    public Library getBook(@PathVariable Long id) {
+    public ResponseEntity<?> getBook(@PathVariable Long id) {
         Optional<Library> library = libraryRepository.findById(id);
         if (library.isEmpty()) {
-            throw new AppException("Book not found with ID: " + id);
+            ApiResponse apiResponse = new ApiResponse(false, "Book not found with ID: " + id);
+            return new ResponseEntity<>(apiResponse, HttpStatus.NOT_FOUND);
         }
-        return library.get();
+        return new ResponseEntity<>(library.get(), HttpStatus.OK);
     }
 
     @PutMapping("/book/{id}")
